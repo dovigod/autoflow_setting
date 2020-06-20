@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "dev": "gulp dev",
-    "build": "gulp build"
+    "build": "gulp build",
+    "img_watch": "gulp enable_watch_img"
   },
   "author": "",
   "license": "MIT",

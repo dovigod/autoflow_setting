@@ -40,8 +40,11 @@ const webserver = () => gulp.src("goal/").pipe(WS({
 
 const watchTarget = () =>{
     gulp.watch(routes.pug.watch,pug);
+    gulp.watch(routes.img.src,img);
+    
 };
 
+const watch_img = () => gulp.watch(routes.img.src.img);
 
 const img = () =>
   gulp
@@ -62,7 +65,8 @@ const prepare = gulp.series([clear,img]);
 const live = gulp.parallel([webserver,watchTarget]); //동시 실행
 const assets =  gulp.series([pug]);
 
-export const dev = gulp.series([prepare,assets,live]);
 
+export const dev = gulp.series([prepare,assets,live]);
+//export const enable_watch_img = gulp.series([watch_img]);
 
 ///문제, 이제 여기선 reload기능이 안먹힘 --> gulp가 내 pug파일을 감시안하기 때문
