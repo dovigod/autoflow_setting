@@ -15,12 +15,19 @@ const routes = {
 
     }
 };
-export const clear = () => del(["goal"]);
 
-export const pug = () =>
+
+const pug = () =>
   gulp
     .src(routes.pug.src)
-    .pipe(gpug({preety:true}))
+    .pipe(gpug({}))
     .pipe(gulp.dest(routes.pug.dest));
 
-export const dev = gulp.series([clear,pug]);
+const clear = () => del(["goal"]);
+
+const prepare = gulp.series([clear]);
+
+//내가 커맨드 할것만 export 하면댐
+
+const assets =  gulp.series([pug]);
+export const dev = gulp.series([prepare,assets]);
