@@ -4,8 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "gulp dev",
-    "build": "gulp build",
-    "img_watch": "gulp enable_watch_img"
+    "build": "gulp build"
   },
   "author": "",
   "license": "MIT",
@@ -17,7 +16,9 @@
     "gulp": "^4.0.2",
     "gulp-image": "^6.2.0",
     "gulp-pug": "^4.0.1",
+    "gulp-sass": "^4.1.0",
     "gulp-watch": "^5.0.1",
-    "gulp-webserver": "^0.9.1"
+    "gulp-webserver": "^0.9.1",
+    "node-sass": "^4.14.1"
   }
 }

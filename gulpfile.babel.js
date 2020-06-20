@@ -1,10 +1,12 @@
 
-import gulp from "gulp";
+import gulp, { dest } from "gulp";
 import gpug from "gulp-pug";
 import del from "del";
 import WS from "gulp-webserver";
 import image from "gulp-image";
+import gSass, { logError } from "gulp-sass";
 
+gSass.compiler = require("node-sass");
 const routes = {
     pug:{
         src: "src/*.pug", //애를 감시하면 제대로 작동안함 고로 모든 파일을 감시해야해
@@ -12,6 +14,9 @@ const routes = {
         dest:"goal"
     },
     scss:{
+        watch:"src/scss/**/*.scss",
+        src: "src/scss/style.scss",
+        dest: "goal/css"
 
     },
     img: {
@@ -24,6 +29,7 @@ const routes = {
     }   */
 };
 
+const css = () => gulp.src(routes.scss.src).pipe(gSass().on("error",logError)).pipe(dest(routes.scss.dest));
 
 const pug = () =>
   gulp
@@ -41,6 +47,7 @@ const webserver = () => gulp.src("goal/").pipe(WS({
 const watchTarget = () =>{
     gulp.watch(routes.pug.watch,pug);
     gulp.watch(routes.img.src,img);
+    gulp.watch(routes.scss.watch,css);
     
 };
 
@@ -63,7 +70,7 @@ const imgOpt = () =>{
 //img는 용량이커서 시간 많이 잡아먹으니까 prepare section에서 시행시키는게 나을듯, 계속 watch당하면 너무 비효율적임
 const prepare = gulp.series([clear,img]);
 const live = gulp.parallel([webserver,watchTarget]); //동시 실행
-const assets =  gulp.series([pug]);
+const assets =  gulp.series([pug,css]);
 
 
 export const dev = gulp.series([prepare,assets,live]);
