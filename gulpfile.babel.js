@@ -5,6 +5,9 @@ import del from "del";
 import WS from "gulp-webserver";
 import image from "gulp-image";
 import gSass, { logError } from "gulp-sass";
+import autoPrefix from "gulp-autoprefixer";
+import csso from "gulp-csso";
+
 
 gSass.compiler = require("node-sass");
 const routes = {
@@ -29,7 +32,13 @@ const routes = {
     }   */
 };
 
-const css = () => gulp.src(routes.scss.src).pipe(gSass().on("error",logError)).pipe(dest(routes.scss.dest));
+const css = () => gulp.src(routes.scss.src)
+        .pipe(gSass().on("error",logError))
+        .pipe(autoPrefix({
+            browsers: ["last 2 versions"]
+        }))
+        .pipe(csso())
+        .pipe(dest(routes.scss.dest));
 
 const pug = () =>
   gulp
