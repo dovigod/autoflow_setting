@@ -14,29 +14,26 @@ import gitDeploy from "gulp-gh-pages";
 gSass.compiler = require("node-sass");
 const routes = {
     pug:{
-        src: "src/*.pug", //애를 감시하면 제대로 작동안함 고로 모든 파일을 감시해야해
+        src: "src/*.pug", 
         watch: "src/**/*.pug",
-        dest:"goal"
+        dest:"dist"
     },
     scss:{
         watch:"src/scss/*",
         src: "src/scss/style.scss",
-        dest: "goal/css"
+        dest: "dist/css"
 
     },
     img: {
         src: "src/img/*",
-        dest: "goal/img"
+        dest: "dist/img"
       },
     js:{
         src: "src/js/main.js",
-        dest:"goal/js",
+        dest:"dist/js",
         watch:"src/js/*"
     }
-   /* img:{
-        src:"src/img/*",
-        dest:"goal/img"
-    }   */
+
 };
 
 const js = () => gulp.src(routes.js.src)
@@ -68,9 +65,9 @@ const pug = () =>
     .pipe(gpug())
     .pipe(gulp.dest(routes.pug.dest));
 
-const clear = () => del(["goal",".publish"]);
+const clear = () => del(["dist",".publish"]);
 
-const webserver = () => gulp.src("goal/").pipe(WS({
+const webserver = () => gulp.src("dist/").pipe(WS({
     livereload: true,
     open: true
 }));
@@ -99,11 +96,11 @@ const imgOpt = () =>{
 
 //위에 경우 async 에러 남, 화살표 함수가 {}감싸면 this 속성이 변함 주의😂😂😂😂😂
 
-const GDP = () => gulp.src("goal/**/*").pipe(gitDeploy({
+const GDP = () => gulp.src("dist/**/*").pipe(gitDeploy({
     origin: "SSHrepo",
-    branch: "gh-pages"
+    branch: "master"
 
-}));
+})); ///problem ....
 
 //내가 커맨드 할것만 export 하면댐
 //img는 용량이커서 시간 많이 잡아먹으니까 prepare section에서 시행시키는게 나을듯, 계속 watch당하면 너무 비효율적임

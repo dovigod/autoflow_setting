@@ -1,5 +1,5 @@
 {
-  "name": "supergulp",
+  "name": "",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -8,7 +8,7 @@
     "deploy": "gulp deploy",
     "washUp": "gulp wash"
   },
-  "repository": "https://github.com/dovigod/autoflow_setting",
+  "repository": "",
   "author": "",
   "license": "MIT",
   "devDependencies": {
